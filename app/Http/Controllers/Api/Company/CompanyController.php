@@ -43,7 +43,8 @@ class CompanyController extends Controller
      */
     public function show(string $uuid):JsonResponse
     {
-        return Response::json(new CompanyResource($this->companyService->getCompanyByUUID('uuid',$uuid)),HttpResponse::HTTP_OK);
+        return Response::json($this->companyService->getCompanyByUUID('uuid',$uuid),HttpResponse::HTTP_OK);
+        // return Response::json(new CompanyResource($this->companyService->getCompanyByUUID('uuid',$uuid)),HttpResponse::HTTP_OK);
     }
 
     /**
