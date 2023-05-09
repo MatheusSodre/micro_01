@@ -18,6 +18,5 @@ class EvaluationService
     {   
         return $this->request('get', "/api/evaluations/{$company}");
     }
-
 }
 ?>

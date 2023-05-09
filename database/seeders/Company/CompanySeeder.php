@@ -14,7 +14,7 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <=50; $i++)
+        for ($i = 1; $i <=15; $i++)
         {
             $name  = "name teste ".$i;
             $phone = rand(11111111111,99999999999);
