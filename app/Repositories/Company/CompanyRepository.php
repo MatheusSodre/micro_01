@@ -14,7 +14,7 @@ class CompanyRepository  extends BaseRepository implements CompanyRepositoryInte
 
     public function getCompanyByUUID(string $field,string $uuid = null)
     {
-        return $this->model->where($field, $uuid)->firstOrFail();
+        return $this->model->where($field, $uuid)->get();
     }
     public function updateCompanyByUUID(string $field,string $uuid = null,array $data)
     {

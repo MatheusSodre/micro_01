@@ -3,6 +3,7 @@
 namespace App\Services\Company;
 
 use App\Http\Resources\Company\CompanyResource;
+use App\Jobs\CompanyCreated;
 use App\Repositories\Company\CompanyRepository;
 use App\Services\ServicesExternal\Evaluation\EvaluationService;
 use Illuminate\Support\Facades\Response;
@@ -25,8 +26,11 @@ class CompanyService
     }
 
     public function store(array $data)
-    {
-        return $this->companyRepository->create($data);
+    {  
+            $company = $this->companyRepository->create($data);
+            CompanyCreated::dispatch($company->email)->onQueue('queue_micro_email');
+        return $company;
+         
     }
     
     public function getAll($relations = [], $columns = ['*'])
@@ -42,7 +46,9 @@ class CompanyService
     public function getCompanyByUUID(string $field, string $uuid = null)
     {
         $reponse             = $this->evaluationService->getEvaluation($uuid);
-        $data['company']     = (new CompanyResource($this->companyRepository->getCompanyByUUID($field,$uuid)));
+        $data['company']     = (CompanyResource::collection($this->companyRepository->getCompanyByUUID($field,$uuid)));
+                                                                                    
+        
         $data['evaluations'] = json_decode($reponse->body());
         return $data;
     }
