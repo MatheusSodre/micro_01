@@ -8,3 +8,4 @@ Route::apiResource('categories',CategoryController::class);
 
 Route::apiResource('companies',CompanyController::class);
 
+
